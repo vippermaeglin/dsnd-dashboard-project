@@ -1,49 +1,52 @@
-# Import any dependencies needed to execute sql queries
-# YOUR CODE HERE
+# Import any dependencies needed to execute SQL queries
+import pandas as pd
+from sqlite3 import connect
 
-# Define a class called QueryBase
-# that has no parent class
-# YOUR CODE HERE
+# Define a class called QueryBase that has no parent class
+class QueryBase:
+    # Create a class attribute called `name` and set it to an empty string
+    name = ""
 
-    # Create a class attribute called `name`
-    # set the attribute to an empty string
-    # YOUR CODE HERE
-
-    # Define a `names` method that receives
-    # no passed arguments
-    # YOUR CODE HERE
-        
+    # Define a `names` method that receives no arguments
+    def names(self):
         # Return an empty list
-        # YOUR CODE HERE
+        return []
 
-
-    # Define an `event_counts` method
-    # that receives an `id` argument
+    # Define an `event_counts` method that receives an `id` argument
     # This method should return a pandas dataframe
-    # YOUR CODE HERE
-
+    def event_counts(self, id):
         # QUERY 1
-        # Write an SQL query that groups by `event_date`
-        # and sums the number of positive and negative events
-        # Use f-string formatting to set the FROM {table}
-        # to the `name` class attribute
-        # Use f-string formatting to set the name
-        # of id columns used for joining
-        # order by the event_date column
-        # YOUR CODE HERE
-            
-    
+        # Write an SQL query that groups by `event_date` and sums the number
+        # of positive and negative events
+        query = f"""
+            SELECT 
+                event_date,
+                SUM(positive_events) AS positive_events,
+                SUM(negative_events) AS negative_events
+            FROM {self.name}
+            JOIN employee_events USING({self.name}_id)
+            WHERE {self.name}.{self.name}_id = {id}
+            GROUP BY event_date
+            ORDER BY event_date
+        """
+        # Open a connection, execute the query, and return a dataframe
+        with connect("employee_events.db") as conn:
+            return pd.read_sql(query, conn)
 
-    # Define a `notes` method that receives an id argument
-    # This function should return a pandas dataframe
-    # YOUR CODE HERE
-
+    # Define a `notes` method that receives an `id` argument
+    # This method should return a pandas dataframe
+    def notes(self, id):
         # QUERY 2
-        # Write an SQL query that returns `note_date`, and `note`
-        # from the `notes` table
-        # Set the joined table names and id columns
-        # with f-string formatting
-        # so the query returns the notes
-        # for the table name in the `name` class attribute
-        # YOUR CODE HERE
-
+        # Write an SQL query that returns `note_date` and `note`
+        # from the `notes` table for the relevant `id`
+        query = f"""
+            SELECT 
+                note_date,
+                note
+            FROM notes
+            JOIN {self.name} USING({self.name}_id)
+            WHERE {self.name}.{self.name}_id = {id}
+        """
+        # Open a connection, execute the query, and return a dataframe
+        with connect("employee_events.db") as conn:
+            return pd.read_sql(query, conn)
