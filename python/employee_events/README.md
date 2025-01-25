@@ -1,4 +1,4 @@
-erDiagram
+Diagram
 
   employee {
     INTEGER index

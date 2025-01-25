@@ -43,7 +43,7 @@ This repository contains starter code for the **Software Engineering for Data Sc
 ### employee_events.db
 
 ```mermaid
-erDiagram
+Diagram
 
   employee {
     INTEGER employee_id PK
@@ -79,3 +79,43 @@ erDiagram
   employee ||--o{ employee_events : "employee_id"
   notes }o--o{ employee_events : ""
 ```
+
+## Run Instructions
+### Simple SQL models validation
+In order to validate Employee/Team models, just execute the `test.py` class under `/python/employee_events`
+### Build & Install
+Go into python folder:
+> cd python
+
+Build the package:
+> python setup.py sdist bdist_wheel
+
+Install the package in editable mode:
+> pip install -e .
+
+Verify the installation:
+> pip show employee_events
+
+### Run the FastAPI
+Go back to root folder:
+> cd ..
+
+Run the application:
+> uvicorn report.dashboard:app --host 0.0.0.0 --port 8000 --reload
+
+Open API in browser:
+> http://localhost:8000
+
+### Validate Endpoints
+Show dashboard for an employee:
+> http://localhost:8000/employee/2
+
+Show dashboard for a team:
+> http://localhost:8000/team/2
+ 
+Show dropdown values with all employees:
+> http://localhost:8000/update_dropdown?profile_type=Employee
+
+Show dropdown values with all teams:
+> http://localhost:8000/update_dropdown?profile_type=Team
+
