@@ -99,6 +99,7 @@ Install the package in editable mode:
 
 Verify the installation:
 > pip show employee_events
+ 
 ![image](https://github.com/user-attachments/assets/cf8f6ec9-e467-4227-b25e-343fab9435e1)
 
 ### Run the FastAPI
