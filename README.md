@@ -42,8 +42,7 @@ This repository contains starter code for the **Software Engineering for Data Sc
 
 ### employee_events.db
 
-```mermaid
-Diagram
+```
 
   employee {
     INTEGER employee_id PK
@@ -83,6 +82,11 @@ Diagram
 ## Run Instructions
 ### Simple SQL models validation
 In order to validate Employee/Team models, just execute the `test.py` class under `/python/employee_events`
+
+### Python Requirements
+From the root directory:
+> pip install -r requirements.txt
+
 ### Build & Install
 Go into python folder:
 > cd python
@@ -95,16 +99,18 @@ Install the package in editable mode:
 
 Verify the installation:
 > pip show employee_events
+![image](https://github.com/user-attachments/assets/cf8f6ec9-e467-4227-b25e-343fab9435e1)
 
 ### Run the FastAPI
 Go back to root folder:
 > cd ..
 
 Run the application:
-> uvicorn report.dashboard:app --host 0.0.0.0 --port 8000 --reload
+> python -m uvicorn report.dashboard:app --host 0.0.0.0 --port 8000 --reload
 
 Open API in browser:
 > http://localhost:8000
+<img width="814" alt="image" src="https://github.com/user-attachments/assets/de0f7091-d4e9-41f5-8cd5-32018e356929" />
 
 ### Validate Endpoints
 Show dashboard for an employee:
